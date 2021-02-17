@@ -12,7 +12,7 @@ import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
 
 import Appointment from "components/Appointment/index";
-import Header from "components/Appointment/header";
+import Header from "components/Appointment/Header";
 
 storiesOf("Button", module)
   .addParameters({
