@@ -12,6 +12,7 @@ import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
 
 import Appointment from "components/Appointment/index";
+import Confirm from "components/Appointment/Confirm";
 import Empty from "components/Appointment/Empty";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
@@ -147,5 +148,12 @@ storiesOf("Appointment", module)
           interviewer={interviewer}
           onEdit={action("onEdit")}
           onDelete={action("onDelete")} 
+    />
+  ))
+
+  .add("Confirm", () => (
+    <Confirm message="Delete the appointment?"
+             onConfirm={action("onConfirm")}
+             onCancel={action("onCancel")}
     />
   ));
