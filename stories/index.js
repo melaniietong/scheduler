@@ -14,6 +14,7 @@ import InterviewerListItem from "components/InterviewerListItem";
 import Appointment from "components/Appointment/index";
 import Confirm from "components/Appointment/Confirm";
 import Empty from "components/Appointment/Empty";
+import Error from "components/Appointment/Error";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Status from "components/Appointment/Status";
@@ -155,4 +156,9 @@ storiesOf("Appointment", module)
              onCancel={action("onCancel")}
     />
   ))
-  .add("Status", () => <Status message="Deleting" />);
+  .add("Status", () => <Status message="Deleting" />)
+  .add("Error", () => (
+    <Error message="Could not delete appointment."
+           onClose={action("onClose")}
+    />
+  ));
