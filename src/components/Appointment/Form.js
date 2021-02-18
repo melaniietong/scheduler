@@ -5,8 +5,17 @@ import InterviewerList from "components/InterviewerList.js";
 
 export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null);
-
   const [name, setName] = useState(props.name ? props.name : "");
+
+  const reset = () => {
+    setInterviewer(null);
+    setName("");
+  }
+
+  const cancel = () => {
+    reset();
+    props.onCancel();
+  }
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -29,7 +38,7 @@ export default function Form(props) {
       
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button onClick={props.onCancel} danger>Cancel</Button>
+          <Button onClick={() => cancel()} danger>Cancel</Button>
           <Button onClick={props.onSave} confirm>Save</Button>
         </section>
       </section>
