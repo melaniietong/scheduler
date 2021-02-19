@@ -5,6 +5,7 @@ export function getAppointmentsForDay(state, day) {
   for (let currentDay of state.days) {
     if (currentDay.name === day) {
       appointmentsToFind = currentDay.appointments;
+      break;
     }
   }
 
@@ -13,4 +14,22 @@ export function getAppointmentsForDay(state, day) {
   }
 
   return appointmentsForDay;
+}
+
+export function getInterview(state, interview) {
+  if (interview === null) {
+    return null;
+  }
+
+  let interviewerInfo = {};
+
+  for (let i in state.interviewers) {
+    if (state.interviewers[i].id === interview.interviewer) {
+      interviewerInfo.student = interview.student;
+      interviewerInfo.interviewer = state.interviewers[i];
+      break;
+    }
+  }
+
+  return interviewerInfo;
 }
