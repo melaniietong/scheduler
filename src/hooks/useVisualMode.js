@@ -10,15 +10,11 @@ export default function useVisualMode(initial) {
   };
 
   const back = () => {
-    let currentHistory = [...history];
-
-    if (history.length === 1) {
-      setMode(currentHistory[currentHistory.length-1])
-    } else {
-      currentHistory.pop();
-      setHistory(currentHistory)
+    if (history.length > 1) {
+      history.pop();
+      setHistory(history);
       
-      setMode(currentHistory[currentHistory.length-1])
+      setMode(history[history.length-1]);
     }
   };
 
