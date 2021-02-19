@@ -33,3 +33,21 @@ export function getInterview(state, interview) {
 
   return interviewerInfo;
 }
+
+export function getInterviewersForDay(state, day) {
+  let interviewersToFind = [];
+  let interviewersForDay = [];
+
+  for (let currentDay of state.days) {
+    if (currentDay.name === day) {
+      interviewersToFind = currentDay.interviewers;
+      break;
+    }
+  }
+
+  for (let interviewer of interviewersToFind) {
+    interviewersForDay.push(state.interviewers[interviewer])
+  }
+
+  return interviewersForDay;
+}
