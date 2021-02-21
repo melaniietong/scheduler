@@ -13,7 +13,7 @@ import "components/Appointment/styles.scss";
 const CREATE = "CREATE";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const STATUS = "STATUS";
+const STATUS_SAVING = "STATUS_SAVING";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
@@ -26,7 +26,7 @@ export default function Appointment(props) {
       interviewer
     };
 
-    transition(STATUS);
+    transition(STATUS_SAVING);
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW));
   }
@@ -50,7 +50,7 @@ export default function Appointment(props) {
         />
       )}
 
-      {mode === STATUS && <Status />}
+      {mode === STATUS_SAVING && <Status message="Saving" />}
     </article>
   );
 }
