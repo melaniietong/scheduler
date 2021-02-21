@@ -45,12 +45,22 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-
-    setState({
-      ...state,
-      appointments
-    });
   };
+
+  const dailySchedule = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+        interviewers={dailyInterviewers}
+        bookInterview={bookInterview}
+      />
+    );
+  });
   
   return (
     <main className="layout">
@@ -75,20 +85,7 @@ export default function Application(props) {
       </section>
       
       <section className="schedule">
-        {dailyAppointments.map(appointment => {
-          const interview = getInterview(state, appointment.interview);
-
-          return (
-            <Appointment
-              key={appointment.id}
-              id={appointment.id}
-              time={appointment.time}
-              interview={interview}
-              interviewers={dailyInterviewers}
-              bookInterview={bookInterview}
-            />
-          );
-        })}
+        {dailySchedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
