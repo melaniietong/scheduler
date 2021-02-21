@@ -13,6 +13,7 @@ import "components/Appointment/styles.scss";
 
 const CONFIRM = "CONFIRM";
 const CREATE = "CREATE";
+const EDIT = "EDIT";
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const STATUS_DELETING = "STATUS_DELETING";
@@ -56,12 +57,22 @@ export default function Appointment(props) {
         />
       )}
 
+      {mode === EDIT && (
+        <Form interviewers={props.interviewers}
+              name={props.interview.student}
+              interviewer={props.interview.interviewer}
+              onCancel={() => back()}
+              onSave={save}
+        />
+      )}
+
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       
       {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
       )}
