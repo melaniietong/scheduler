@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
 
 export const useApplicationData = () => {
@@ -8,6 +8,8 @@ export const useApplicationData = () => {
     appointments: {},
     interviewers: {}
   });
+
+  const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
     Promise.all([
@@ -22,8 +24,6 @@ export const useApplicationData = () => {
       }));
     });
   }, []);
-  
-  const setDay = day => setState({ ...state, day });
 
   const cancelInterview = (id) => {
     const appointment = {
@@ -37,7 +37,10 @@ export const useApplicationData = () => {
     };
 
     return axios.delete(`api/appointments/${id}`)
-      .then((data) => setState({ ...state, appointments }));
+      .then((data) => {
+        updateSpots(state.days, id, "deleting");
+        setState({ ...state, appointments })
+      });
   };
 
   const bookInterview = (id, interview) => {
@@ -52,7 +55,29 @@ export const useApplicationData = () => {
     };
 
     return axios.put(`api/appointments/${id}`, { interview })
-      .then((data) => setState({ ...state, appointments }));
+      .then((data) => {
+        updateSpots(state.days, id, "booking");
+        setState({ ...state, appointments })
+      });
+  };
+
+  const updateSpots = (days, id, type) => {
+    let updateSpotsDay;
+
+    for (let day in days) {
+      for (let app of days[day].appointments) {
+        if (app === id) {
+          updateSpotsDay = days[day];
+          break;
+        }
+      }
+    }
+
+    if (type === "booking") {
+      updateSpotsDay.spots--;
+    } else if (type === "deleting") {
+      updateSpotsDay.spots++;
+    }
   };
 
   return { state, setDay, bookInterview, cancelInterview };
