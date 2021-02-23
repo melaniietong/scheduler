@@ -75,7 +75,7 @@ export default function Appointment(props) {
 
       {mode === ERROR_DELETE && <Error
         message="Could not delete your appointment. Please try again."
-        onClose={() => transition(EMPTY)} />}
+        onClose={() => transition(SHOW)} />}
 
       {mode === ERROR_SAVE && <Error
         message="Could not save your appointment. Please try again." 
