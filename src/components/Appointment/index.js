@@ -2,6 +2,7 @@ import React from "react";
 
 import Confirm from "components/Appointment/Confirm";
 import Empty from "components/Appointment/Empty";
+import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
@@ -15,6 +16,8 @@ const CONFIRM = "CONFIRM";
 const CREATE = "CREATE";
 const EDIT = "EDIT";
 const EMPTY = "EMPTY";
+const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_SAVE = "ERROR_SAVE";
 const SHOW = "SHOW";
 const STATUS_DELETING = "STATUS_DELETING";
 const STATUS_SAVING = "STATUS_SAVING";
@@ -27,7 +30,8 @@ export default function Appointment(props) {
   const cancelInterview = () => {
     transition(STATUS_DELETING);
     props.cancelInterview(props.id)
-      .then(() => transition(EMPTY));
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE));
   };
 
   const save = (name, interviewer) => {
@@ -38,7 +42,8 @@ export default function Appointment(props) {
 
     transition(STATUS_SAVING);
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE));
   }
 
   return (
@@ -67,6 +72,14 @@ export default function Appointment(props) {
       )}
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+
+      {mode === ERROR_DELETE && <Error
+        message="Could not delete your appointment. Please try again."
+        onClose={() => transition(EMPTY)} />}
+
+      {mode === ERROR_SAVE && <Error
+        message="Could not save your appointment. Please try again." 
+        onClose={() => transition(EMPTY)} />}
       
       {mode === SHOW && (
         <Show
