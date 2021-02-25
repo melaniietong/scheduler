@@ -47,7 +47,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
       {mode === CONFIRM && <Confirm
         message="Are you sure you want to delete this appointment?"
