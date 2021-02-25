@@ -1,5 +1,4 @@
 export default {
-  defaults: { baseURL: "" },
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({
@@ -27,31 +26,13 @@ export default {
   }),
 
   put: jest.fn(url => {
-    if (url === "/api/days") {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No Content",
-        data: fixtures.days
-      });
-    }
+    return Promise.resolve({ status: 204, statusText: "No Content" })
+  }),
 
-    if (url === "/api/appointments") {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No Content",
-        data: fixtures.appointments
-      });
-    }
-
-    if (url === "/api/interviewers") {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No Content",
-        data: fixtures.interviewers
-      });
-    }
+  delete: jest.fn(url => {
+    return Promise.resolve({ status: 204, statusText: "No Content" })
   })
-};
+}
 
 const fixtures = {
   days: [
